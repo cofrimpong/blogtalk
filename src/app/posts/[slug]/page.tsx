@@ -27,8 +27,8 @@ export default async function PostPage({ params }: PostPageProps) {
           ← Back to home
         </Link>
       </p>
-      <article className="prose prose-zinc max-w-none dark:prose-invert">
-        <h1 className="tracking-tight">{post.title}</h1>
+      <article className="prose prose-zinc editorial-prose max-w-none dark:prose-invert">
+        <h1 className="editorial-serif tracking-tight">{post.title}</h1>
         <div className="mb-6 flex flex-wrap items-center gap-2 text-xs uppercase tracking-wide opacity-70">
           <span>{post.date}</span>
           <span>·</span>

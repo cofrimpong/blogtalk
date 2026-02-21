@@ -14,14 +14,14 @@ export default async function Home() {
           Personal Blog
         </p>
         <article
-          className="prose prose-zinc mt-4 max-w-none dark:prose-invert"
+          className="prose prose-zinc editorial-prose mt-4 max-w-none dark:prose-invert"
           dangerouslySetInnerHTML={{ __html: home.htmlContent }}
         />
       </section>
 
-      <section className="mt-12">
+      <section id="essays" className="mt-12 scroll-mt-24">
         <div className="flex items-end justify-between">
-          <h2 className="text-2xl font-semibold tracking-tight">Latest Essays</h2>
+          <h2 className="editorial-serif text-3xl font-semibold tracking-tight">Latest Essays</h2>
           <p className="text-sm opacity-70">{posts.length} published</p>
         </div>
         <ul className="mt-5 grid gap-4 md:grid-cols-2">
