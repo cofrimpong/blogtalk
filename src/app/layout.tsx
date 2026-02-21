@@ -31,18 +31,18 @@ export default function RootLayout({
             <nav className="mx-auto flex w-full max-w-5xl items-center justify-between">
               <Link
                 href="/"
-                className="group inline-flex items-center gap-2 rounded-full border border-amber-300/70 bg-amber-100/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-900 transition-all hover:bg-amber-200/80 hover:shadow-sm dark:border-amber-800/80 dark:bg-amber-900/30 dark:text-amber-200"
+                className="group inline-flex items-center gap-2 rounded-full border border-fuchsia-300/70 bg-fuchsia-100/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-fuchsia-900 transition-all hover:bg-fuchsia-200/80 hover:shadow-sm dark:border-fuchsia-800/80 dark:bg-fuchsia-900/30 dark:text-fuchsia-200"
               >
-                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-amber-700 text-[10px] tracking-normal text-amber-50 dark:bg-amber-500 dark:text-zinc-950">
+                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-violet-700 text-[10px] tracking-normal text-violet-50 dark:bg-violet-500 dark:text-zinc-950">
                   BT
                 </span>
                 BlogTalk
               </Link>
               <div className="flex items-center gap-6 text-sm font-medium">
-                <Link href="/" className="transition-colors hover:text-amber-700 dark:hover:text-amber-300">
+                <Link href="/" className="transition-colors hover:text-fuchsia-700 dark:hover:text-fuchsia-300">
                   Home
                 </Link>
-                <Link href="/#essays" className="transition-colors hover:text-amber-700 dark:hover:text-amber-300">
+                <Link href="/#essays" className="transition-colors hover:text-fuchsia-700 dark:hover:text-fuchsia-300">
                   Essays
                 </Link>
               </div>
