@@ -11,6 +11,8 @@ type FrontMatter = {
   title?: string;
   date?: string | Date;
   excerpt?: string;
+  tags?: string[];
+  readTime?: string;
 };
 
 export type PostMeta = {
@@ -18,6 +20,8 @@ export type PostMeta = {
   title: string;
   date: string;
   excerpt?: string;
+  tags: string[];
+  readTime: string;
 };
 
 export type HomeContent = {
@@ -43,6 +47,14 @@ function normalizeDate(value: string | Date | undefined): string {
   }
 
   return value;
+}
+
+function normalizeTags(value: string[] | undefined): string[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value.filter((item): item is string => typeof item === "string");
 }
 
 export async function getHomeContent(): Promise<HomeContent> {
@@ -79,6 +91,8 @@ export function getSortedPostsMeta(): PostMeta[] {
       title: frontMatter.title ?? slug,
       date: normalizeDate(frontMatter.date),
       excerpt: frontMatter.excerpt,
+      tags: normalizeTags(frontMatter.tags),
+      readTime: frontMatter.readTime ?? "8 min read",
     };
   });
 
@@ -113,6 +127,8 @@ export async function getPostBySlug(slug: string): Promise<(PostMeta & { htmlCon
     title: frontMatter.title ?? slug,
     date: normalizeDate(frontMatter.date),
     excerpt: frontMatter.excerpt,
+    tags: normalizeTags(frontMatter.tags),
+    readTime: frontMatter.readTime ?? "8 min read",
     htmlContent: processed.toString(),
   };
 }

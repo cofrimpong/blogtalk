@@ -2,6 +2,11 @@
 title: Writing as an Operating System
 date: 2026-02-20
 excerpt: Writing is not content production; it is a strategic tool for better decisions.
+readTime: 6 min read
+tags:
+  - Writing
+  - Product
+  - Operations
 ---
 
 # Writing as an Operating System

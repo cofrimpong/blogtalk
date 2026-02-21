@@ -29,7 +29,19 @@ export default async function PostPage({ params }: PostPageProps) {
       </p>
       <article className="prose prose-zinc max-w-none dark:prose-invert">
         <h1 className="tracking-tight">{post.title}</h1>
-        <p className="text-xs uppercase tracking-wide opacity-70">{post.date}</p>
+        <div className="mb-6 flex flex-wrap items-center gap-2 text-xs uppercase tracking-wide opacity-70">
+          <span>{post.date}</span>
+          <span>·</span>
+          <span>{post.readTime}</span>
+          {post.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-zinc-300/80 px-2 py-0.5 text-[10px] font-medium dark:border-zinc-700"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
         <div dangerouslySetInnerHTML={{ __html: post.htmlContent }} />
       </article>
     </main>

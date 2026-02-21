@@ -2,6 +2,11 @@
 title: Decision-Making Under Uncertainty
 date: 2026-02-20
 excerpt: A practical framework for making high-quality decisions when data is incomplete.
+readTime: 8 min read
+tags:
+   - Strategy
+   - Decision-Making
+   - Leadership
 ---
 
 # Decision-Making Under Uncertainty

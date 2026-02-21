@@ -2,6 +2,11 @@
 title: The Architecture of Clear Thinking
 date: 2026-02-20
 excerpt: Clarity is not a trait; it is a stack of habits that can be engineered.
+readTime: 9 min read
+tags:
+  - Systems-Thinking
+  - Philosophy
+  - Leadership
 ---
 
 # The Architecture of Clear Thinking

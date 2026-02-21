@@ -2,6 +2,10 @@
 title: First Post
 date: 2026-02-20
 excerpt: This is the first post generated from Markdown.
+readTime: 4 min read
+tags:
+  - Foundations
+  - Writing
 ---
 
 # First Post

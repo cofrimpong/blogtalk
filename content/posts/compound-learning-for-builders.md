@@ -2,6 +2,11 @@
 title: Compound Learning for Builders
 date: 2026-02-20
 excerpt: How to build a learning loop that keeps improving your leverage over time.
+readTime: 7 min read
+tags:
+   - Learning
+   - Systems
+   - Execution
 ---
 
 # Compound Learning for Builders
