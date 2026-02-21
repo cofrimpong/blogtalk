@@ -2,8 +2,8 @@
 title: Home
 ---
 
-# Welcome to my blog
+# Notes on Product, Systems, and Judgment
 
-This homepage is rendered from a single Markdown file.
+I write about building durable products, making decisions under uncertainty, and designing systems that scale without becoming brittle.
 
-You can edit `content/home.md` anytime to update this intro.
+This is a personal lab notebook: practical ideas, field-tested frameworks, and concise essays for operators who value clarity over hype.
