@@ -2,8 +2,8 @@
 title: Home
 ---
 
-# Notes on Product, Systems, and Judgment
+# Thinking in Public.
 
-I write long-form essays on building durable products, making decisions under uncertainty, and designing systems that scale without becoming brittle.
+Essays on technology, systems thinking, and the art of building things that matter. Less noise, more signal.
 
-This is a personal lab notebook: practical ideas, field-tested frameworks, and full essays for operators who value clarity over hype.
+I write about ideas that shape execution — from first-principles reasoning and product architecture to the operating philosophy behind durable software.

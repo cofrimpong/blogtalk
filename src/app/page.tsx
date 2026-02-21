@@ -9,8 +9,8 @@ export default async function Home() {
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-5xl px-6 py-10 md:py-14">
-      <section className="relative overflow-hidden rounded-2xl border border-zinc-200/70 bg-gradient-to-b from-amber-50/80 to-white p-8 dark:border-zinc-800 dark:from-zinc-900 dark:to-zinc-950 md:p-10">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">
+      <section className="relative overflow-hidden rounded-2xl border border-zinc-200/70 bg-gradient-to-b from-amber-50/80 via-white to-white p-8 shadow-sm dark:border-zinc-800 dark:from-zinc-900 dark:via-zinc-950 dark:to-zinc-950 md:p-10">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-700 dark:text-amber-300">
           Personal Blog
         </p>
         <article
