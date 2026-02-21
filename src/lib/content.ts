@@ -29,6 +29,12 @@ export type HomeContent = {
   htmlContent: string;
 };
 
+export type TocItem = {
+  id: string;
+  title: string;
+  level: 2 | 3;
+};
+
 function parseFrontMatter(data: unknown): FrontMatter {
   if (!data || typeof data !== "object") {
     return {};
@@ -55,6 +61,56 @@ function normalizeTags(value: string[] | undefined): string[] {
   }
 
   return value.filter((item): item is string => typeof item === "string");
+}
+
+function slugify(value: string): string {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
+function extractToc(content: string): TocItem[] {
+  const lines = content.split(/\r?\n/);
+  const counts = new Map<string, number>();
+  const toc: TocItem[] = [];
+
+  for (const line of lines) {
+    const match = line.match(/^(#{2,3})\s+(.+)$/);
+
+    if (!match) {
+      continue;
+    }
+
+    const level = match[1].length as 2 | 3;
+    const title = match[2].trim();
+    const baseId = slugify(title) || "section";
+    const duplicateCount = counts.get(baseId) ?? 0;
+    counts.set(baseId, duplicateCount + 1);
+    const id = duplicateCount === 0 ? baseId : `${baseId}-${duplicateCount + 1}`;
+
+    toc.push({ id, title, level });
+  }
+
+  return toc;
+}
+
+function injectHeadingIds(htmlContent: string, toc: TocItem[]): string {
+  let index = 0;
+
+  return htmlContent.replace(/<h([23])>(.*?)<\/h\1>/g, (fullMatch, levelText, headingInner) => {
+    const tocItem = toc[index];
+    const level = Number(levelText) as 2 | 3;
+
+    if (!tocItem || tocItem.level !== level) {
+      return fullMatch;
+    }
+
+    index += 1;
+    return `<h${level} id="${tocItem.id}">${headingInner}</h${level}>`;
+  });
 }
 
 export async function getHomeContent(): Promise<HomeContent> {
@@ -110,7 +166,9 @@ export function getAllPostSlugs(): string[] {
     .map((fileName) => fileName.replace(/\.md$/, ""));
 }
 
-export async function getPostBySlug(slug: string): Promise<(PostMeta & { htmlContent: string }) | null> {
+export async function getPostBySlug(
+  slug: string,
+): Promise<(PostMeta & { htmlContent: string; toc: TocItem[] }) | null> {
   const fullPath = path.join(postsDirectory, `${slug}.md`);
 
   if (!fs.existsSync(fullPath)) {
@@ -121,6 +179,8 @@ export async function getPostBySlug(slug: string): Promise<(PostMeta & { htmlCon
   const { data, content } = matter(fileContents);
   const frontMatter = parseFrontMatter(data);
   const processed = await remark().use(html).process(content);
+  const toc = extractToc(content);
+  const htmlContent = injectHeadingIds(processed.toString(), toc);
 
   return {
     slug,
@@ -129,6 +189,7 @@ export async function getPostBySlug(slug: string): Promise<(PostMeta & { htmlCon
     excerpt: frontMatter.excerpt,
     tags: normalizeTags(frontMatter.tags),
     readTime: frontMatter.readTime ?? "8 min read",
-    htmlContent: processed.toString(),
+    htmlContent,
+    toc,
   };
 }
