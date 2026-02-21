@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
+import AuthNav from "./AuthNav";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -38,13 +39,14 @@ export default function RootLayout({
                 </span>
                 BlogTalk
               </Link>
-              <div className="flex items-center gap-6 text-sm font-medium">
+              <div className="flex items-center gap-4 text-sm font-medium">
                 <Link href="/" className="transition-colors hover:text-fuchsia-700 dark:hover:text-fuchsia-300">
                   Home
                 </Link>
                 <Link href="/#essays" className="transition-colors hover:text-fuchsia-700 dark:hover:text-fuchsia-300">
                   Essays
                 </Link>
+                <AuthNav />
               </div>
             </nav>
           </header>
