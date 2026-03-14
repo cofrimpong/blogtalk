@@ -238,6 +238,34 @@ function normalizePath(path: string): string {
     .join("/");
 }
 
+function inferGitHubPagesTarget(): {
+  owner?: string;
+  repo?: string;
+} {
+  if (typeof window === "undefined") {
+    return {};
+  }
+
+  const host = window.location.hostname.trim().toLowerCase();
+  const githubIoSuffix = ".github.io";
+
+  if (!host.endsWith(githubIoSuffix)) {
+    return {};
+  }
+
+  const owner = host.slice(0, -githubIoSuffix.length).trim();
+  const pathParts = window.location.pathname
+    .split("/")
+    .map((part) => part.trim())
+    .filter(Boolean);
+  const repo = pathParts[0]?.trim();
+
+  return {
+    owner: owner || undefined,
+    repo: repo || undefined,
+  };
+}
+
 function normalizeHydratedSettings(base: RuntimeSettings, saved: Partial<RuntimeSettings>): RuntimeSettings {
   const merged: RuntimeSettings = { ...base, ...saved };
   const normalizedPostsPath = normalizePath(merged.postsPath || base.postsPath);
@@ -282,6 +310,34 @@ export default function ConsultantPage() {
   const recorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const chunksRef = useRef<Blob[]>([]);
+
+  useEffect(() => {
+    setSettings((previous) => {
+      const inferred = inferGitHubPagesTarget();
+
+      const githubOwner = previous.githubOwner.trim() || defaultSettings.githubOwner.trim() || inferred.owner || "";
+      const githubRepo = previous.githubRepo.trim() || defaultSettings.githubRepo.trim() || inferred.repo || "";
+      const githubBranch = previous.githubBranch.trim() || defaultSettings.githubBranch.trim() || "main";
+      const postsPath = normalizePath(previous.postsPath || defaultSettings.postsPath || "content/posts");
+
+      if (
+        githubOwner === previous.githubOwner &&
+        githubRepo === previous.githubRepo &&
+        githubBranch === previous.githubBranch &&
+        postsPath === previous.postsPath
+      ) {
+        return previous;
+      }
+
+      return {
+        ...previous,
+        githubOwner,
+        githubRepo,
+        githubBranch,
+        postsPath,
+      };
+    });
+  }, []);
 
   useEffect(() => {
     if (!auth) {
@@ -514,8 +570,9 @@ export default function ConsultantPage() {
       return;
     }
 
-    const githubOwner = settings.githubOwner.trim() || defaultSettings.githubOwner.trim();
-    const githubRepo = settings.githubRepo.trim() || defaultSettings.githubRepo.trim();
+    const inferredTarget = inferGitHubPagesTarget();
+    const githubOwner = settings.githubOwner.trim() || defaultSettings.githubOwner.trim() || inferredTarget.owner || "";
+    const githubRepo = settings.githubRepo.trim() || defaultSettings.githubRepo.trim() || inferredTarget.repo || "";
     const githubBranch = settings.githubBranch.trim() || defaultSettings.githubBranch.trim() || "main";
 
     if (!githubOwner || !githubRepo) {

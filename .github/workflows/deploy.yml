@@ -24,6 +24,10 @@ jobs:
       NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ vars.NEXT_PUBLIC_FIREBASE_PROJECT_ID || secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID || 'blogtalk-a1df6' }}
       NEXT_PUBLIC_FIREBASE_APP_ID: ${{ vars.NEXT_PUBLIC_FIREBASE_APP_ID || secrets.NEXT_PUBLIC_FIREBASE_APP_ID || '1:683672804384:web:29ba826a820176fa803045' }}
       NEXT_PUBLIC_OWNER_EMAIL: ${{ vars.NEXT_PUBLIC_OWNER_EMAIL || secrets.NEXT_PUBLIC_OWNER_EMAIL || 'cof@njit.edu' }}
+      NEXT_PUBLIC_GITHUB_OWNER: ${{ vars.NEXT_PUBLIC_GITHUB_OWNER || secrets.NEXT_PUBLIC_GITHUB_OWNER || 'cofrimpong' }}
+      NEXT_PUBLIC_GITHUB_REPO: ${{ vars.NEXT_PUBLIC_GITHUB_REPO || secrets.NEXT_PUBLIC_GITHUB_REPO || 'blogtalk' }}
+      NEXT_PUBLIC_GITHUB_BRANCH: ${{ vars.NEXT_PUBLIC_GITHUB_BRANCH || secrets.NEXT_PUBLIC_GITHUB_BRANCH || 'main' }}
+      NEXT_PUBLIC_POSTS_PATH: ${{ vars.NEXT_PUBLIC_POSTS_PATH || secrets.NEXT_PUBLIC_POSTS_PATH || 'content/posts' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
