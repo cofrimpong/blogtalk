@@ -75,14 +75,32 @@ function dateSortKey(value: string): string {
   return /^\d{4}-\d{2}-\d{2}$/.test(normalized) ? normalized : "";
 }
 
-function slugTimestampSortKey(slug: string): number {
+function slugTimestampSortKey(slug: string): string {
   const match = slug.match(/-(\d{14})$/);
   if (!match) {
-    return 0;
+    return "";
   }
 
-  const numeric = Number(match[1]);
-  return Number.isFinite(numeric) ? numeric : 0;
+  return match[1];
+}
+
+function publishOrderSortKey(date: string, slug: string): string {
+  const normalizedDate = dateSortKey(date).replace(/-/g, "");
+  const slugTimestamp = slugTimestampSortKey(slug);
+
+  if (normalizedDate && slugTimestamp) {
+    return `${normalizedDate}${slugTimestamp.slice(8)}`;
+  }
+
+  if (slugTimestamp) {
+    return slugTimestamp;
+  }
+
+  if (normalizedDate) {
+    return `${normalizedDate}000000`;
+  }
+
+  return "";
 }
 
 function slugify(value: string): string {
@@ -175,14 +193,9 @@ export function getSortedPostsMeta(): PostMeta[] {
   });
 
   return posts.sort((a, b) => {
-    const byDate = dateSortKey(b.date).localeCompare(dateSortKey(a.date));
-    if (byDate !== 0) {
-      return byDate;
-    }
-
-    const bySlugTimestamp = slugTimestampSortKey(b.slug) - slugTimestampSortKey(a.slug);
-    if (bySlugTimestamp !== 0) {
-      return bySlugTimestamp;
+    const byPublishOrder = publishOrderSortKey(b.date, b.slug).localeCompare(publishOrderSortKey(a.date, a.slug));
+    if (byPublishOrder !== 0) {
+      return byPublishOrder;
     }
 
     return b.slug.localeCompare(a.slug);
