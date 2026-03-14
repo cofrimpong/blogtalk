@@ -35,7 +35,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-## Authentication setup (Email + Google + Apple)
+## Authentication setup (Email + Google)
 
 This project uses Firebase Authentication on the client so it works on GitHub Pages.
 
@@ -48,9 +48,47 @@ This project uses Firebase Authentication on the client so it works on GitHub Pa
 3. In Firebase Console → Authentication → Sign-in method, enable:
 	- Email/Password
 	- Google
-	- Apple
 4. Add authorized domains for your app:
 	- `localhost`
 	- `cofrimpong.github.io`
 
 The sign-in page is available at `/signin`.
+
+## AI Consultant POC (voice to published markdown)
+
+This repo now includes a POC page at `/consultant` with this flow:
+
+1. Record voice in-browser.
+2. Transcribe locally using Whisper (`@xenova/transformers`, model `Xenova/whisper-tiny.en`).
+3. Send transcript to one LLM call (OpenAI or Claude) to produce structured blog JSON.
+4. Manually approve.
+5. Publish markdown into `content/posts/*.md` via GitHub Contents API.
+6. Existing GitHub Actions deploy workflow publishes the updated site.
+
+### Required runtime values
+
+- Firebase public vars for sign-in gate:
+	- `NEXT_PUBLIC_FIREBASE_API_KEY`
+	- `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+	- `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+	- `NEXT_PUBLIC_FIREBASE_APP_ID`
+- Optional allowlist for publisher emails:
+	- `NEXT_PUBLIC_ALLOWED_PUBLISHER_EMAILS` (comma-separated)
+- Optional defaults for GitHub target:
+	- `NEXT_PUBLIC_GITHUB_OWNER`
+	- `NEXT_PUBLIC_GITHUB_REPO`
+	- `NEXT_PUBLIC_GITHUB_BRANCH`
+	- `NEXT_PUBLIC_POSTS_PATH`
+- Optional model defaults:
+	- `NEXT_PUBLIC_OPENAI_MODEL`
+	- `NEXT_PUBLIC_ANTHROPIC_MODEL`
+
+LLM API keys and GitHub token are entered in the `/consultant` page and saved to `localStorage` for this device.
+
+### GitHub token scope for publish
+
+Use a fine-grained token with repository `Contents: Read and write` permission on your `blogtalk` repo.
+
+### Security note
+
+This POC allows direct browser API calls. For production, move all secret-bearing calls to a server-side API.

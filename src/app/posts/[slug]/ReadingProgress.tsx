@@ -31,7 +31,7 @@ export default function ReadingProgress() {
   }, []);
 
   return (
-    <div className="sticky top-[57px] z-10 mb-6 h-1 w-full overflow-hidden rounded-full bg-zinc-200/80 dark:bg-zinc-800">
+    <div className="sticky top-[57px] z-10 mb-6 h-1 w-full overflow-hidden rounded-full bg-zinc-200/80 dark:bg-slate-800">
       <div
         className="h-full rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 transition-[width] duration-150"
         style={{ width: `${progress}%` }}

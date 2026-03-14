@@ -2,8 +2,8 @@
 title: Home
 ---
 
-# Thinking in Public.
+## Welcome to Chrissy's Verse
 
-Essays on technology, systems thinking, and the art of building things that matter. Less noise, more signal.
+This is my cozy cloud corner for web presence updates.
 
-I write about ideas that shape execution — from first-principles reasoning and product architecture to the operating philosophy behind durable software.
+Expect launch notes, project snapshots, collaborations, and quick updates on what I’m building across platforms.
