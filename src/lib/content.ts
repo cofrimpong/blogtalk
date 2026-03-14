@@ -70,6 +70,21 @@ function normalizeTags(value: string[] | undefined): string[] {
   return value.filter((item): item is string => typeof item === "string");
 }
 
+function dateSortKey(value: string): string {
+  const normalized = value.trim();
+  return /^\d{4}-\d{2}-\d{2}$/.test(normalized) ? normalized : "";
+}
+
+function slugTimestampSortKey(slug: string): number {
+  const match = slug.match(/-(\d{14})$/);
+  if (!match) {
+    return 0;
+  }
+
+  const numeric = Number(match[1]);
+  return Number.isFinite(numeric) ? numeric : 0;
+}
+
 function slugify(value: string): string {
   return value
     .toLowerCase()
@@ -159,7 +174,19 @@ export function getSortedPostsMeta(): PostMeta[] {
     };
   });
 
-  return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+  return posts.sort((a, b) => {
+    const byDate = dateSortKey(b.date).localeCompare(dateSortKey(a.date));
+    if (byDate !== 0) {
+      return byDate;
+    }
+
+    const bySlugTimestamp = slugTimestampSortKey(b.slug) - slugTimestampSortKey(a.slug);
+    if (bySlugTimestamp !== 0) {
+      return bySlugTimestamp;
+    }
+
+    return b.slug.localeCompare(a.slug);
+  });
 }
 
 export function getAllPostSlugs(): string[] {
