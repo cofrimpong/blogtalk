@@ -14,6 +14,17 @@ pnpm dev
 bun dev
 ```
 
+## GitHub Pages environment variables
+
+`env.local` and `.env.local` are local-only and are not used by GitHub Actions.
+For deployed auth features, add these in GitHub repository **Settings → Secrets and variables → Actions** as either repository variables (`vars`) or secrets:
+
+- `NEXT_PUBLIC_FIREBASE_API_KEY`
+- `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
+- `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
+- `NEXT_PUBLIC_FIREBASE_APP_ID`
+- `NEXT_PUBLIC_OWNER_EMAIL` (optional)
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
