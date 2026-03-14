@@ -50,8 +50,32 @@ const formatterInstructions = [
   "- add one section that calls out weak points and practical fixes.",
 ].join("\n");
 
+function formatLocalIsoDate(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 function todayIsoDate(): string {
-  return new Date().toISOString().slice(0, 10);
+  return formatLocalIsoDate(new Date());
+}
+
+function normalizeDraftDate(value: unknown): string {
+  if (value instanceof Date) {
+    return formatLocalIsoDate(value);
+  }
+
+  if (typeof value !== "string") {
+    return todayIsoDate();
+  }
+
+  const trimmed = value.trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+    return trimmed;
+  }
+
+  return todayIsoDate();
 }
 
 export function slugify(input: string): string {
@@ -120,7 +144,7 @@ function normalizeDraft(raw: unknown): BlogDraft {
   const content = ensureString(data.content, "# Draft\n\n");
   const readTime = ensureString(data.readTime, "8 min read");
   const tags = normalizeTags(data.tags);
-  const date = ensureString(data.date, todayIsoDate());
+  const date = normalizeDraftDate(data.date);
 
   return {
     title,

@@ -1,6 +1,6 @@
 ---
 title: "The Ultimate Guide to Making a Perfect PB&J Sandwich"
-date: "2026-03-14"
+date: "2026-03-13"
 excerpt: "Learn how to craft the perfect peanut butter and jelly sandwich with our step-by-step guide. Discover tips and tricks to elevate this classic favorite!"
 tags:
   - "cooking"

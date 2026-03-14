@@ -22,12 +22,9 @@ export default function AuthNav() {
 
   if (!auth) {
     return (
-      <Link
-        href="/signin"
-        className="rounded-full border border-sky-300/80 bg-white/80 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-zinc-700 transition hover:border-sky-400 hover:bg-sky-50 dark:border-slate-600 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:bg-slate-800"
-      >
-        Sign in
-      </Link>
+      <span className="rounded-full border border-zinc-300/80 bg-white/80 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-zinc-700 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200">
+        Browse mode
+      </span>
     );
   }
 

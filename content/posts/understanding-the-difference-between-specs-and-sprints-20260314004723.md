@@ -1,6 +1,6 @@
 ---
 title: "Understanding the Difference Between Specs and Sprints"
-date: "2026-03-14"
+date: "2026-03-13"
 excerpt: "In the world of project management, particularly in software development, understanding the distinction between specifications (specs) and sprints is crucial for success. This article breaks down both concepts and their roles in the development process."
 tags:
   - "project management"
