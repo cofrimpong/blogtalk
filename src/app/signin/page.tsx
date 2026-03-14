@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -11,8 +11,7 @@ import {
 import { getFirebaseAuth, hasFirebaseConfig } from "@/lib/firebaseClient";
 
 export default function SignInPage() {
-  const auth = useMemo(() => getFirebaseAuth(), []);
-  const authAvailable = Boolean(auth) && hasFirebaseConfig;
+  const authAvailable = hasFirebaseConfig;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,7 +34,9 @@ export default function SignInPage() {
     return normalizedEmail;
   };
 
-  const withLoading = async (action: () => Promise<void>) => {
+  const withLoading = async (action: (auth: NonNullable<ReturnType<typeof getFirebaseAuth>>) => Promise<void>) => {
+    const auth = getFirebaseAuth();
+
     if (!auth) {
       setMessage("Sign-in is unavailable on this deployment right now.");
       return;
@@ -45,7 +46,7 @@ export default function SignInPage() {
     setMessage(null);
 
     try {
-      await action();
+      await action(auth);
       setMessage("Success. You are signed in.");
     } catch (error) {
       const authError = error as { code?: string; message?: string };
@@ -72,8 +73,8 @@ export default function SignInPage() {
       return;
     }
 
-    await withLoading(async () => {
-      await signInWithEmailAndPassword(auth!, normalizedEmail, password);
+    await withLoading(async (auth) => {
+      await signInWithEmailAndPassword(auth, normalizedEmail, password);
     });
   };
 
@@ -88,14 +89,14 @@ export default function SignInPage() {
       return;
     }
 
-    await withLoading(async () => {
-      await createUserWithEmailAndPassword(auth!, normalizedEmail, password);
+    await withLoading(async (auth) => {
+      await createUserWithEmailAndPassword(auth, normalizedEmail, password);
     });
   };
 
   const signInWithGoogle = async () => {
-    await withLoading(async () => {
-      await signInWithPopup(auth!, new GoogleAuthProvider());
+    await withLoading(async (auth) => {
+      await signInWithPopup(auth, new GoogleAuthProvider());
     });
   };
 
