@@ -73,6 +73,12 @@ export default function RootLayout({
                 >
                   Updates
                 </Link>
+                <Link
+                  href="/projects"
+                  className="rounded-full px-3 py-1.5 text-zinc-700 transition hover:bg-emerald-100 hover:text-emerald-700 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-emerald-300"
+                >
+                  Projects
+                </Link>
                 <ConsultantNavLink />
                 <AuthNav />
               </div>
