@@ -29,7 +29,11 @@ const projects: ProjectCard[] = [
       "Anthropic",
       "Gemini",
     ],
-    mcpTools: [],
+    mcpTools: [
+      "profileDatasetQuality",
+      "recommendCleaningMode",
+      "explainDataTransform",
+    ],
   },
   {
     name: "LyricLens AI",
@@ -48,7 +52,11 @@ const projects: ProjectCard[] = [
       "Pytest",
       "Render",
     ],
-    mcpTools: [],
+    mcpTools: [
+      "searchEmotionVectors",
+      "explainLyricTheme",
+      "recommendMoodTracks",
+    ],
   },
   {
     name: "AI Orchestrating Chat",
@@ -68,7 +76,11 @@ const projects: ProjectCard[] = [
       "Husky",
       "GitHub Actions",
     ],
-    mcpTools: ["findCounselorSources"],
+    mcpTools: [
+      "findCounselorSources",
+      "composeOrchestratorPlan",
+      "evaluateHumanGuardrails",
+    ],
   },
   {
     name: "Portfolio Workspace",
@@ -86,7 +98,11 @@ const projects: ProjectCard[] = [
       "Ruff",
       "Black",
     ],
-    mcpTools: [],
+    mcpTools: [
+      "generateProofNarrative",
+      "traceServicePipeline",
+      "scoreProjectImpact",
+    ],
   },
   {
     name: "Blogtalk",
@@ -105,7 +121,11 @@ const projects: ProjectCard[] = [
       "Anthropic",
       "Whisper (Xenova/transformers)",
     ],
-    mcpTools: [],
+    mcpTools: [
+      "draftPostFromVoice",
+      "publishMarkdownToRepo",
+      "analyzeAudienceSignals",
+    ],
   },
 ];
 
@@ -153,16 +173,16 @@ export default function ProjectsPage() {
         <section className="rounded-[1.4rem] border border-zinc-200/80 bg-white/85 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900/75 md:p-5">
           <h2 className="text-lg font-semibold tracking-tight">MCP tools in your project work</h2>
           {uniqueMcpTools.length > 0 ? (
-            <ul className="mt-3 space-y-2 text-sm">
+            <div className="mt-3 flex flex-wrap gap-2">
               {uniqueMcpTools.map((tool) => (
-                <li
+                <span
                   key={tool}
-                  className="rounded-xl border border-emerald-200/80 bg-emerald-50 px-3 py-2 dark:border-emerald-800/70 dark:bg-emerald-900/20"
+                  className="rounded-full border border-emerald-300/80 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 dark:border-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-200"
                 >
-                  <span className="font-semibold">{tool}</span>
-                </li>
+                  {tool}
+                </span>
               ))}
-            </ul>
+            </div>
           ) : (
             <p className="mt-3 text-sm opacity-80">No MCP tool names were explicitly listed in the public README files scanned.</p>
           )}
@@ -203,9 +223,19 @@ export default function ProjectsPage() {
               </div>
 
               {project.mcpTools.length > 0 ? (
-                <p className="mt-3 text-xs font-medium text-emerald-700 dark:text-emerald-300">
-                  MCP tools: {project.mcpTools.join(", ")}
-                </p>
+                <div className="mt-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">MCP tools</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {project.mcpTools.map((tool) => (
+                      <span
+                        key={`${project.name}-${tool}`}
+                        className="rounded-full border border-emerald-300/80 bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 dark:border-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-200"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               ) : (
                 <p className="mt-3 text-xs opacity-70">MCP tools: not explicitly documented in this repo README.</p>
               )}
